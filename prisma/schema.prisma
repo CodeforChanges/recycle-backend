@@ -36,6 +36,7 @@ model Post {
   post_shares      Share[]
   post_likes       Like[]
   post_images      Post_Image[]
+  reg_date         DateTime     @default(now())
 }
 
 model Post_Image {
