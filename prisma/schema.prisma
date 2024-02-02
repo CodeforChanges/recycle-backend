@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model User {
+  user_id          Int         @id @default(autoincrement())
+  user_email       String      @unique
+  user_password    String
+  user_name        String
+  user_nickname    String
+  user_image       String
+  user_posts       Post[]
+  user_comments    Comment[]
+  user_shares      Share[]
+  user_likes       Like[]
+  user_followers   Follow[]     @relation("UserFollowers")
+  user_followings  Follow[]     @relation("UserFollowings")
+  user_created_at  DateTime     @default(now())
+}
+
+model Post {
+  post_id          Int          @id @default(autoincrement())
+  post_content     String
+  post_owner_id    Int
+  post_owner       User         @relation(fields: [post_owner_id], references: [user_id])
+  post_comments    Comment[]
+  post_shares      Share[]
+  post_likes       Like[]
+  post_images      Post_Image[]
+}
+
+model Post_Image {
+  image_id                Int         @id @default(autoincrement())
+  image_post_id           Int
+  image_post              Post        @relation(fields: [image_post_id], references: [post_id])
+  image_link              String?
+}
+
+model Comment {
+  comment_id        Int         @id @default(autoincrement())
+  comment_content   String
+  comment_owner_id  Int
+  comment_owner     User        @relation(fields: [comment_owner_id], references: [user_id])
+  comment_post_id   Int
+  comment_post      Post        @relation(fields: [comment_post_id], references: [post_id])
+  reg_date          DateTime    @default(now())
+}
+
+model Share {
+  share_id        Int         @id       @default(autoincrement())
+  share_post_id   Int  
+  share_post      Post        @relation(fields: [share_post_id], references: [post_id])
+  share_owner_id  Int
+  share_owner     User        @relation(fields: [share_owner_id], references: [user_id])
+}
+
+model Like {
+  like_id         Int         @id         @default(autoincrement())
+  like_owner_id   Int
+  like_owner      User        @relation(fields: [like_owner_id], references: [user_id])
+  like_post_id    Int
+  like_post       Post        @relation(fields: [like_post_id], references: [post_id])
+}
+
+model Follow {
+  follow_id       Int         @id         @default(autoincrement())
+  follower_id     Int
+  follower        User        @relation(name: "UserFollowers", fields: [follower_id], references: [user_id])
+  following_id    Int
+  following       User        @relation(name:"UserFollowings", fields: [following_id], references: [user_id])
+}
