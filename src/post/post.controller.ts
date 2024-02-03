@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -39,8 +40,9 @@ export class PostController {
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: '게시물 생성 엔드포인트 입니다.' })
   @Post()
-  async create(@Body() createPostDto: CreatePostDto) {
-    return await this.postService.create(createPostDto);
+  async create(@Body() createPostDto: CreatePostDto, @Req() req: Request) {
+    const user_id = req['user'].user_id;
+    return await this.postService.create(createPostDto, +user_id);
   }
 
   @UseGuards(AuthGuard)

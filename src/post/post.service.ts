@@ -12,7 +12,7 @@ import { GetAllPostServiceParams } from './types/post.types';
 export class PostService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: CreatePostDto) {
+  async create(data: CreatePostDto, user_id: number) {
     return await this.prisma.post.create({
       include: {
         post_comments: true,
@@ -25,7 +25,7 @@ export class PostService {
         post_content: data.post_content,
         post_owner: {
           connect: {
-            user_id: data.post_owner_id,
+            user_id,
           },
         },
       },
