@@ -15,12 +15,4 @@ export class CreatePostDto {
       '게시물 포스트 할 때 업로드한 이미지 배열을 여기에 담아주시면 됩니다.',
   })
   post_images?: string[];
-
-  @ApiProperty({
-    required: true,
-    title: '게시글 작성자 id',
-    description:
-      '게시글 작성자 id를 보내주시면 됩니다!(user_id로 보내주시면 됩니다!)',
-  })
-  post_owner_id: number;
 }
