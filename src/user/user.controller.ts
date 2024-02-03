@@ -26,14 +26,13 @@ export class UserController {
   }
 
   @ApiOperation({ summary: 'id로 유저 데이터 받는 엔드포인트 입니다.' })
-  @Get()
-  async findOne(@Req() req: Request) {
-    const user_id = req['user'].user_id;
-    return await this.userService.findOne(+user_id);
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return await this.userService.findOne(+id);
   }
 
   @UseGuards(AuthGuard)
-  @ApiOperation({ summary: 'id로 유저 업데이터 하는 엔드포인트 입니다.' })
+  @ApiOperation({ summary: '유저 업데이터 하는 엔드포인트 입니다.' })
   @Patch()
   async update(@Body() updateUserDto: UpdateUserDto, @Req() req: Request) {
     const user_id = req['user'].user_id;
@@ -41,7 +40,7 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard)
-  @ApiOperation({ summary: 'id로 유저 삭제하는 엔드포인트 입니다.' })
+  @ApiOperation({ summary: '유저 삭제하는 엔드포인트 입니다.' })
   @Delete()
   async remove(@Req() req: Request) {
     const user_id = req['user'].user_id;
