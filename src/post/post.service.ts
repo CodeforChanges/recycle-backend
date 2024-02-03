@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PrismaService } from 'src/prisma.service';
-import { getPostFindManyArgs } from './utils/post.utils';
+import {
+  formatPostsWithOwnerAndLike,
+  getPostFindManyResult,
+} from './utils/post.utils';
+import { GetAllPostServiceParams } from './types/post.types';
 
 @Injectable()
 export class PostService {
@@ -10,6 +14,13 @@ export class PostService {
 
   async create(data: CreatePostDto) {
     return await this.prisma.post.create({
+      include: {
+        post_comments: true,
+        post_images: true,
+        post_likes: true,
+        post_owner: true,
+        post_shares: true,
+      },
       data: {
         post_content: data.post_content,
         post_owner: {
@@ -21,23 +32,14 @@ export class PostService {
     });
   }
 
-  async findAll({ page, filter }: { page: number; filter: 'like' | 'date' }) {
-    const pageSize = 4;
-    return await this.prisma.post.findMany(
-      getPostFindManyArgs({
-        filter,
-        page,
-        pageSize,
-      }),
-    );
-  }
-
-  async findOne(id: number) {
-    return await this.prisma.post.findUnique({
-      where: {
-        post_id: id,
-      },
+  async findAll({ page, filter, user_id }: GetAllPostServiceParams) {
+    const result = await getPostFindManyResult({
+      page,
+      filter,
+      prisma: this.prisma,
     });
+
+    return formatPostsWithOwnerAndLike({ posts: result, user_id });
   }
 
   async update(id: number, updatePostDto: UpdatePostDto) {
@@ -45,7 +47,13 @@ export class PostService {
       where: {
         post_id: id,
       },
-      include: { post_images: true },
+      include: {
+        post_images: true,
+        post_comments: true,
+        post_likes: true,
+        post_owner: true,
+        post_shares: true,
+      },
       data: {
         post_content: updatePostDto.post_content,
         post_images: {
@@ -66,6 +74,9 @@ export class PostService {
 
   async remove(id: number) {
     return await this.prisma.post.delete({
+      select: {
+        post_id: true,
+      },
       where: {
         post_id: id,
       },
