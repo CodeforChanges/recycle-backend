@@ -15,21 +15,25 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { PostFindManyFilter } from './types/post.types';
 import { ApiOperation } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { Request } from 'express';
 
 @Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary:
       '게시물 1페이지(4개) 데이터 받는 엔드포인트 입니다. page=0부터 시작.',
   })
   @Get()
   async findAll(
+    request: Request,
     @Query('page') page: number,
     @Query('filter') filter: PostFindManyFilter,
   ) {
-    return await this.postService.findAll({ page, filter });
+    const user_id = request['user'].user_id;
+    return await this.postService.findAll({ page, filter, user_id });
   }
 
   @UseGuards(AuthGuard)

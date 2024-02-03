@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PrismaService } from 'src/prisma.service';
-import { getPostFindManyArgs } from './utils/post.utils';
+import { getPostFindManyResult } from './utils/post.utils';
+import {
+  GetAllPostServiceParams,
+  PostFindManyFilter,
+} from './types/post.types';
 
 @Injectable()
 export class PostService {
@@ -21,15 +25,12 @@ export class PostService {
     });
   }
 
-  async findAll({ page, filter }: { page: number; filter: 'like' | 'date' }) {
-    const pageSize = 4;
-    return await this.prisma.post.findMany(
-      getPostFindManyArgs({
-        filter,
-        page,
-        pageSize,
-      }),
-    );
+  async findAll({ page, filter, user_id }: GetAllPostServiceParams) {
+    const result = await getPostFindManyResult({
+      page,
+      filter,
+      prisma: this.prisma,
+    });
   }
 
   async findOne(id: number) {
