@@ -17,7 +17,7 @@ model User {
   user_password    String
   user_name        String
   user_nickname    String
-  user_image       String
+  user_image       String?
   user_posts       Post[]
   user_comments    Comment[]
   user_shares      Share[]
