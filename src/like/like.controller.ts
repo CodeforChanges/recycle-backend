@@ -1,16 +1,34 @@
-import { Controller } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { LikeService } from './like.service';
+import { CreateLikeDto } from './dto/create-like.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { Request } from 'express';
 
 @Controller('like')
 export class LikeController {
-  constructor(private readonly likeService: LikeService) {
-    // TODO: like CRUD 작성
-    /**
-     * GET() : 사용자가 좋아요 누른 모든 게시물 받아오기
-     * POST() : 포스트 좋아요 누를시 호출되는 엔드포인트
-     * DELETE(user_id, post_id) : 포스트 좋아요 취소시 호출되는 엔드포인트
-     *  - user_id는 request.user.user_id에서 추출 가능.
-     *  - post_id는 파라미터로 받기
-     */
+  constructor(private readonly likeService: LikeService) {}
+
+  @UseGuards(AuthGuard)
+  @Post()
+  async createOne(
+    @Body() createOneDto: CreateLikeDto,
+    @Req() request: Request,
+  ) {
+    const user_id = request['user'].user_id;
+    return await this.likeService.createOne(createOneDto, user_id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete(':id')
+  async deleteOne(@Param('id') id) {
+    return await this.deleteOne(+id);
   }
 }
