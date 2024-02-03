@@ -45,6 +45,7 @@ export class PostService {
       where: {
         post_id: id,
       },
+      include: { post_images: true },
       data: {
         post_content: updatePostDto.post_content,
         post_images: {
