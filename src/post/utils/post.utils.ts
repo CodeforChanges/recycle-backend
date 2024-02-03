@@ -1,6 +1,7 @@
 import {
   GetPostFindManyParams,
   GetPostFindManyResult,
+  PostType,
 } from '../types/post.types';
 
 export const getPostFindManyResult = async ({
@@ -48,12 +49,36 @@ export const getPostFindManyResult = async ({
   });
 };
 
-const getUserLikeState = () => {
-  // TODO: like 상태 확인하는 로직 작성.
+const getUserLikeState = ({
+  post,
+  user_id,
+}: {
+  post: PostType;
+  user_id: number;
+}) => {
+  return post.post_likes.some((like) => like.like_owner_id === user_id);
 };
 
-export const formatPostsWithOwnerAndLike = (posts: GetPostFindManyResult) => {
+const getUserShareState = ({
+  post,
+  user_id,
+}: {
+  post: PostType;
+  user_id: number;
+}) => {
+  return post.post_shares.some((share) => share.share_owner_id === user_id);
+};
+
+export const formatPostsWithOwnerAndLike = ({
+  posts,
+  user_id,
+}: {
+  posts: GetPostFindManyResult;
+  user_id: number;
+}) => {
   return posts.map((post) => ({
     ...post,
+    isLiked: getUserLikeState({ post, user_id }),
+    isShared: getUserShareState({ post, user_id }),
   }));
 };

@@ -19,3 +19,9 @@ export type GetPostFindManyResult = Awaited<
 export type GetPostFindManyParams = GetAllPostBaseParams & {
   prisma: PrismaService;
 };
+
+export type PostType = ReturnType<typeof getPostFindManyResult> extends Promise<
+  (infer U)[]
+>
+  ? U
+  : never;

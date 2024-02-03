@@ -43,12 +43,6 @@ export class PostController {
     return await this.postService.create(createPostDto);
   }
 
-  @ApiOperation({ summary: 'id로 한 게시물 데이터 받는 엔드포인트 입니다.' })
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.postService.findOne(+id);
-  }
-
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'id로 게시물 업데이트 하는 엔드포인트 입니다.' })
   @Patch(':id')
