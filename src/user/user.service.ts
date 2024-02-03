@@ -37,6 +37,31 @@ export class UserService {
 
   async findOne(id: number) {
     return await this.prisma.user.findUnique({
+      include: {
+        user_posts: {
+          include: {
+            post_images: true,
+            post_comments: true,
+            post_likes: true,
+            post_owner: true,
+            post_shares: true,
+          },
+        },
+        _count: {
+          select: {
+            user_followers: {
+              where: {
+                following_id: id,
+              },
+            },
+            user_followings: {
+              where: {
+                follower_id: id,
+              },
+            },
+          },
+        },
+      },
       where: {
         user_id: id,
       },
