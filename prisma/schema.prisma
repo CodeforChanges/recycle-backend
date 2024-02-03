@@ -31,50 +31,52 @@ model Post {
   post_id          Int          @id @default(autoincrement())
   post_content     String
   post_owner_id    Int
-  post_owner       User         @relation(fields: [post_owner_id], references: [user_id])
+  post_owner       User         @relation(fields: [post_owner_id], references: [user_id], onDelete: Cascade)
   post_comments    Comment[]
   post_shares      Share[]
   post_likes       Like[]
   post_images      Post_Image[]
+  reg_date         DateTime     @default(now())
 }
 
 model Post_Image {
   image_id                Int         @id @default(autoincrement())
   image_post_id           Int
-  image_post              Post        @relation(fields: [image_post_id], references: [post_id])
+  image_post              Post        @relation(fields: [image_post_id], references: [post_id], onDelete: Cascade)
   image_link              String?
+  reg_date                DateTime    @default(now())
 }
 
 model Comment {
   comment_id        Int         @id @default(autoincrement())
   comment_content   String
   comment_owner_id  Int
-  comment_owner     User        @relation(fields: [comment_owner_id], references: [user_id])
+  comment_owner     User        @relation(fields: [comment_owner_id], references: [user_id], onDelete: Cascade)
   comment_post_id   Int
-  comment_post      Post        @relation(fields: [comment_post_id], references: [post_id])
+  comment_post      Post        @relation(fields: [comment_post_id], references: [post_id], onDelete: Cascade)
   reg_date          DateTime    @default(now())
 }
 
 model Share {
   share_id        Int         @id       @default(autoincrement())
   share_post_id   Int  
-  share_post      Post        @relation(fields: [share_post_id], references: [post_id])
+  share_post      Post        @relation(fields: [share_post_id], references: [post_id], onDelete: Cascade)
   share_owner_id  Int
-  share_owner     User        @relation(fields: [share_owner_id], references: [user_id])
+  share_owner     User        @relation(fields: [share_owner_id], references: [user_id], onDelete: Cascade)
 }
 
 model Like {
   like_id         Int         @id         @default(autoincrement())
   like_owner_id   Int
-  like_owner      User        @relation(fields: [like_owner_id], references: [user_id])
+  like_owner      User        @relation(fields: [like_owner_id], references: [user_id], onDelete: Cascade)
   like_post_id    Int
-  like_post       Post        @relation(fields: [like_post_id], references: [post_id])
+  like_post       Post        @relation(fields: [like_post_id], references: [post_id], onDelete: Cascade)
 }
 
 model Follow {
   follow_id       Int         @id         @default(autoincrement())
   follower_id     Int
-  follower        User        @relation(name: "UserFollowers", fields: [follower_id], references: [user_id])
+  follower        User        @relation(name: "UserFollowers", fields: [follower_id], references: [user_id], onDelete: Cascade)
   following_id    Int
-  following       User        @relation(name:"UserFollowings", fields: [following_id], references: [user_id])
+  following       User        @relation(name:"UserFollowings", fields: [following_id], references: [user_id], onDelete: Cascade)
 }
