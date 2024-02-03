@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -25,22 +26,25 @@ export class UserController {
   }
 
   @ApiOperation({ summary: 'id로 유저 데이터 받는 엔드포인트 입니다.' })
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.userService.findOne(+id);
+  @Get()
+  async findOne(@Req() req: Request) {
+    const user_id = req['user'].user_id;
+    return await this.userService.findOne(+user_id);
   }
 
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'id로 유저 업데이터 하는 엔드포인트 입니다.' })
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return await this.userService.update(+id, updateUserDto);
+  @Patch()
+  async update(@Body() updateUserDto: UpdateUserDto, @Req() req: Request) {
+    const user_id = req['user'].user_id;
+    return await this.userService.update(+user_id, updateUserDto);
   }
 
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'id로 유저 삭제하는 엔드포인트 입니다.' })
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return await this.userService.remove(+id);
+  @Delete()
+  async remove(@Req() req: Request) {
+    const user_id = req['user'].user_id;
+    return await this.userService.remove(+user_id);
   }
 }
