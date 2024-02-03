@@ -12,10 +12,6 @@ export type GetAllPostServiceParams = GetAllPostBaseParams & {
   user_id: number;
 };
 
-export type GetPostFindManyArgsParams = GetAllPostBaseParams & {
-  pageSize: number;
-};
-
 export type GetPostFindManyResult = Awaited<
   ReturnType<typeof getPostFindManyResult>
 >;
