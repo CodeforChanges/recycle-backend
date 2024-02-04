@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
 import { hashPassword } from './lib/hash';
+import { exclude } from './utils/user.utils';
 
 @Injectable()
 export class UserService {
@@ -42,7 +43,7 @@ export class UserService {
   }
 
   async findOne(id: number) {
-    return await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       include: {
         user_posts: {
           include: {
@@ -72,6 +73,7 @@ export class UserService {
         user_id: id,
       },
     });
+    return exclude(user, ['user_password']);
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
@@ -83,6 +85,10 @@ export class UserService {
       data: {
         user_image,
         user_nickname,
+      },
+      select: {
+        user_image: true,
+        user_nickname: true,
       },
     });
   }
