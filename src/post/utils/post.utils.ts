@@ -15,6 +15,17 @@ export const getPostFindManyResult = async ({
     take: pageSize,
     include: {
       post_comments: {
+        select: {
+          comment_content: true,
+          comment_owner: {
+            select: {
+              user_id: true,
+              user_nickname: true,
+              user_image: true,
+            },
+          },
+          comment_id: true,
+        },
         orderBy: {
           reg_date: 'desc',
         },
@@ -25,14 +36,28 @@ export const getPostFindManyResult = async ({
         },
       },
       post_likes: {
-        include: {
-          like_owner: true,
+        select: {
+          like_owner_id: true,
+          like_id: true,
         },
       },
-      post_owner: {},
+      post_owner: {
+        select: {
+          user_id: true,
+          user_nickname: true,
+          user_image: true,
+          user_followers: {
+            select: {
+              follower_id: true,
+              follow_id: true,
+            },
+          },
+        },
+      },
       post_shares: {
-        include: {
-          share_owner: true,
+        select: {
+          share_id: true,
+          share_owner_id: true,
         },
       },
     },

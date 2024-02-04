@@ -50,8 +50,10 @@ export class UserService {
             post_images: true,
             post_comments: true,
             post_likes: true,
-            post_owner: true,
             post_shares: true,
+          },
+          orderBy: {
+            reg_date: 'desc',
           },
         },
         _count: {

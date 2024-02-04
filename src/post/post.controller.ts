@@ -29,7 +29,7 @@ export class PostController {
   })
   @Get()
   async findAll(
-    request: Request,
+    @Req() request: Request,
     @Query('page') page: number,
     @Query('filter') filter: PostFindManyFilter,
   ) {

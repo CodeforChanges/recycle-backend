@@ -15,11 +15,14 @@ export class PostService {
   async create(data: CreatePostDto, user_id: number) {
     return await this.prisma.post.create({
       include: {
-        post_comments: true,
         post_images: true,
-        post_likes: true,
-        post_owner: true,
-        post_shares: true,
+        post_owner: {
+          select: {
+            user_id: true,
+            user_nickname: true,
+            user_image: true,
+          },
+        },
       },
       data: {
         post_content: data.post_content,
@@ -47,12 +50,17 @@ export class PostService {
       where: {
         post_id: id,
       },
-      include: {
-        post_images: true,
-        post_comments: true,
-        post_likes: true,
-        post_owner: true,
-        post_shares: true,
+      select: {
+        post_content: true,
+        post_images: {
+          select: {
+            image_id: true,
+            image_link: true,
+          },
+          orderBy: {
+            reg_date: 'desc',
+          },
+        },
       },
       data: {
         post_content: updatePostDto.post_content,
