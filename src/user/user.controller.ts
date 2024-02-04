@@ -32,7 +32,7 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard)
-  @ApiOperation({ summary: '유저 업데이터 하는 엔드포인트 입니다.' })
+  @ApiOperation({ summary: '유저 업데이트 하는 엔드포인트 입니다.' })
   @Patch()
   async update(@Body() updateUserDto: UpdateUserDto, @Req() req: Request) {
     const user_id = req['user'].user_id;
