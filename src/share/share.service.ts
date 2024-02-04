@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateShareDto } from './dto/create-share.dto';
+import { DeleteShareDto } from './dto/delete-share.dto';
 
 @Injectable()
 export class ShareService {
@@ -19,6 +20,10 @@ export class ShareService {
     }
 
     return await this.prisma.share.create({
+      select: {
+        share_owner_id: true,
+        share_post_id: true,
+      },
       data: {
         share_owner: {
           connect: {
@@ -34,10 +39,13 @@ export class ShareService {
     });
   }
 
-  async unShare(share_id: number) {
-    return await this.prisma.share.delete({
+  async unShare({ post_id, user_id }: DeleteShareDto) {
+    return await this.prisma.share.deleteMany({
       where: {
-        share_id,
+        share_owner_id: user_id,
+        AND: {
+          share_post_id: post_id,
+        },
       },
     });
   }

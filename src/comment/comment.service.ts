@@ -26,6 +26,7 @@ export class CommentService {
   }
 
   async update(updateCommentDto: UpdateCommentDto) {
+    console.log(updateCommentDto);
     return await this.prisma.comment.update({
       where: {
         comment_id: updateCommentDto.comment_id,

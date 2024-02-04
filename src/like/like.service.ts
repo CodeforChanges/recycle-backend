@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateLikeDto } from './dto/create-like.dto';
+import { DeleteLikeDto } from './dto/delete-like.dto';
 
 @Injectable()
 export class LikeService {
@@ -21,6 +22,9 @@ export class LikeService {
     }
 
     return await this.prisma.like.create({
+      select: {
+        like_id: true,
+      },
       data: {
         like_owner: {
           connect: {
@@ -36,10 +40,13 @@ export class LikeService {
     });
   }
 
-  async deleteOne(like_id: number) {
-    return await this.prisma.like.delete({
+  async deleteOne({ user_id, post_id }: DeleteLikeDto) {
+    return await this.prisma.like.deleteMany({
       where: {
-        like_id,
+        like_owner_id: user_id,
+        AND: {
+          like_post_id: post_id,
+        },
       },
     });
   }

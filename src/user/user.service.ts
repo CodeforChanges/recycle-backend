@@ -45,17 +45,6 @@ export class UserService {
   async findOne(id: number) {
     const user = await this.prisma.user.findUnique({
       include: {
-        user_posts: {
-          include: {
-            post_images: true,
-            post_comments: true,
-            post_likes: true,
-            post_shares: true,
-          },
-          orderBy: {
-            reg_date: 'desc',
-          },
-        },
         _count: {
           select: {
             user_followers: {
@@ -97,6 +86,9 @@ export class UserService {
 
   async remove(id: number) {
     return this.prisma.user.delete({
+      select: {
+        user_id: true,
+      },
       where: {
         user_id: id,
       },

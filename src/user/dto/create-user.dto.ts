@@ -1,4 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
+import { UserDto } from 'src/dto/base.dto';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -35,4 +36,18 @@ export class CreateUserDto {
     description: '유저 프로필 이미지 입니다.',
   })
   user_image?: string;
+}
+
+export class CreateUserResponseDto implements Partial<UserDto> {
+  @ApiResponseProperty()
+  user_id: number;
+
+  @ApiResponseProperty()
+  user_email?: string;
+
+  @ApiResponseProperty()
+  user_name: string;
+
+  @ApiResponseProperty()
+  user_nickname?: string;
 }

@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateFollowDto } from './dto/create-follow.dto';
+import { DeleteFollowDto } from './dto/delete-follow.dto';
 
 @Injectable()
 export class FollowService {
@@ -21,6 +22,10 @@ export class FollowService {
     }
 
     return await this.prisma.follow.create({
+      select: {
+        follower_id: true,
+        following_id: true,
+      },
       data: {
         follower: {
           connect: {
@@ -36,10 +41,13 @@ export class FollowService {
     });
   }
 
-  async unFollow(follow_id: number) {
-    return await this.prisma.follow.delete({
+  async unFollow({ follower_id, following_id }: DeleteFollowDto) {
+    return await this.prisma.follow.deleteMany({
       where: {
-        follow_id,
+        follower_id,
+        AND: {
+          following_id,
+        },
       },
     });
   }

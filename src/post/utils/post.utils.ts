@@ -1,3 +1,4 @@
+import { get } from 'http';
 import {
   GetPostFindManyParams,
   GetPostFindManyResult,
@@ -8,11 +9,15 @@ export const getPostFindManyResult = async ({
   page,
   filter,
   prisma,
+  target_id,
 }: GetPostFindManyParams) => {
   const pageSize = 4;
   return await prisma.post.findMany({
     skip: page * pageSize,
     take: pageSize,
+    where: {
+      post_owner_id: target_id,
+    },
     include: {
       post_comments: {
         select: {
@@ -95,6 +100,34 @@ const getUserShareState = ({
   return post.post_shares.some((share) => share.share_owner_id === user_id);
 };
 
+const getUserFollowState = ({
+  post,
+  user_id,
+}: {
+  post: PostType;
+  user_id: number;
+}) => {
+  return post.post_owner.user_followers.some(
+    (follower) => follower.follower_id === user_id,
+  );
+};
+
+const formatPostOwnerWithFollowCount = (post: PostType) => {
+  const { user_followers, ...rest } = post.post_owner;
+  return {
+    ...rest,
+    follower_count: user_followers.length,
+  };
+};
+
+const getLikesCount = (post: PostType) => {
+  return post.post_likes.length;
+};
+
+const getSharesCount = (post: PostType) => {
+  return post.post_shares.length;
+};
+
 export const formatPostsWithOwnerAndLike = ({
   posts,
   user_id,
@@ -104,7 +137,13 @@ export const formatPostsWithOwnerAndLike = ({
 }) => {
   return posts.map((post) => ({
     ...post,
+    post_likes: undefined,
+    post_shares: undefined,
+    likesCount: getLikesCount(post),
+    sharesCount: getSharesCount(post),
     isLiked: getUserLikeState({ post, user_id }),
     isShared: getUserShareState({ post, user_id }),
+    isFollowed: getUserFollowState({ post, user_id }),
+    post_owner: formatPostOwnerWithFollowCount(post),
   }));
 };

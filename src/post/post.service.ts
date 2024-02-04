@@ -35,11 +35,12 @@ export class PostService {
     });
   }
 
-  async findAll({ page, filter, user_id }: GetAllPostServiceParams) {
+  async findAll({ page, filter, user_id, target_id }: GetAllPostServiceParams) {
     const result = await getPostFindManyResult({
       page,
       filter,
       prisma: this.prisma,
+      target_id,
     });
 
     return formatPostsWithOwnerAndLike({ posts: result, user_id });
