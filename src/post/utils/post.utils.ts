@@ -25,6 +25,7 @@ export const getPostFindManyResult = async ({
             },
           },
           comment_id: true,
+          reg_date: true,
         },
         orderBy: {
           reg_date: 'desc',
