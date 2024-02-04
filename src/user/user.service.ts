@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
 import { hashPassword } from './lib/hash';
+import { exclude } from './utils/user.utils';
 
 @Injectable()
 export class UserService {
@@ -32,15 +33,38 @@ export class UserService {
         user_nickname,
         user_password: hashedPassword,
       },
+      select: {
+        user_email: true,
+        user_id: true,
+        user_name: true,
+        user_nickname: true,
+      },
     });
   }
 
   async findOne(id: number) {
-    return await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
+      include: {
+        _count: {
+          select: {
+            user_followers: {
+              where: {
+                following_id: id,
+              },
+            },
+            user_followings: {
+              where: {
+                follower_id: id,
+              },
+            },
+          },
+        },
+      },
       where: {
         user_id: id,
       },
     });
+    return exclude(user, ['user_password']);
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
@@ -53,11 +77,18 @@ export class UserService {
         user_image,
         user_nickname,
       },
+      select: {
+        user_image: true,
+        user_nickname: true,
+      },
     });
   }
 
   async remove(id: number) {
     return this.prisma.user.delete({
+      select: {
+        user_id: true,
+      },
       where: {
         user_id: id,
       },

@@ -1,4 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
+import { UserDto } from 'src/dto/base.dto';
 
 export class UpdateUserDto {
   @ApiProperty({
@@ -14,4 +15,12 @@ export class UpdateUserDto {
     description: '유저 프로필 이미지 입니다.',
   })
   user_image?: string;
+}
+
+export class UpdateUserResponseDto implements Partial<UserDto> {
+  @ApiResponseProperty()
+  user_image: string;
+
+  @ApiResponseProperty()
+  user_nickname: string;
 }

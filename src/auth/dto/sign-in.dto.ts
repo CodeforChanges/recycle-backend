@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 
 export class SignInDto {
   @ApiProperty({
@@ -14,4 +14,9 @@ export class SignInDto {
     description: '로그인 패스워드 입니다.',
   })
   user_password: string;
+}
+
+export class SignInResponseDto {
+  @ApiResponseProperty()
+  access_token: string;
 }
