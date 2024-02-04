@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { LikeModule } from './like/like.module';
 import { FollowModule } from './follow/follow.module';
 import { ShareModule } from './share/share.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ShareModule } from './share/share.module';
     LikeModule,
     FollowModule,
     ShareModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
