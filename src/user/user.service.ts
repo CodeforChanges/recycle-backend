@@ -32,6 +32,12 @@ export class UserService {
         user_nickname,
         user_password: hashedPassword,
       },
+      select: {
+        user_email: true,
+        user_id: true,
+        user_name: true,
+        user_nickname: true,
+      },
     });
   }
 
