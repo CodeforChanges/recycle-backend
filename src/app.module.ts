@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { LikeModule } from './like/like.module';
 import { FollowModule } from './follow/follow.module';
+import { ShareModule } from './share/share.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { FollowModule } from './follow/follow.module';
     }),
     LikeModule,
     FollowModule,
+    ShareModule,
   ],
   controllers: [AppController],
   providers: [AppService],
