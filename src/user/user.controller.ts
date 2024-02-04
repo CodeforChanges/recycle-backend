@@ -25,7 +25,7 @@ export class UserController {
     return await this.userService.create(createUserDto);
   }
 
-  @ApiOperation({ summary: 'id로 유저 데이터 받는 엔드포인트 입니다.' })
+  @ApiOperation({ summary: 'user_id로 유저 데이터 받는 엔드포인트 입니다.' })
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.userService.findOne(+id);

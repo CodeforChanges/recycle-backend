@@ -46,14 +46,16 @@ export class PostController {
   }
 
   @UseGuards(AuthGuard)
-  @ApiOperation({ summary: 'id로 게시물 업데이트 하는 엔드포인트 입니다.' })
+  @ApiOperation({
+    summary: 'post_id로 게시물 업데이트 하는 엔드포인트 입니다.',
+  })
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     return await this.postService.update(+id, updatePostDto);
   }
 
   @UseGuards(AuthGuard)
-  @ApiOperation({ summary: 'id로 게시물 제거하는 엔드포인트 입니다.' })
+  @ApiOperation({ summary: 'post_id로 게시물 제거하는 엔드포인트 입니다.' })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.postService.remove(+id);
