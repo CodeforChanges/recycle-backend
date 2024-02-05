@@ -1,86 +1,78 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url = env("POSTGRES_URL")
-  // url = env("POSTGRES_PRISMA_URL") 
-  // directUrl = env("POSTGRES_URL_NON_POOLING")
+  url      = env("POSTGRES_URL")
 }
 
 model User {
-  user_id          Int         @id @default(autoincrement())
-  user_email       String      @unique
-  user_password    String
-  user_name        String
-  user_nickname    String
-  user_image       String?
-  user_posts       Post[]
-  user_comments    Comment[]
-  user_shares      Share[]
-  user_likes       Like[]
-  user_followers   Follow[]     @relation("UserFollowers")
-  user_followings  Follow[]     @relation("UserFollowings")
-  user_created_at  DateTime     @default(now())
+  user_id         Int       @id @default(autoincrement())
+  user_email      String    @unique
+  user_password   String
+  user_name       String
+  user_nickname   String
+  user_image      String
+  user_created_at DateTime  @default(now())
+  user_comments   Comment[]
+  user_followers  Follow[]  @relation("UserFollowers")
+  user_followings Follow[]  @relation("UserFollowings")
+  user_likes      Like[]
+  user_posts      Post[]
+  user_shares     Share[]
 }
 
 model Post {
-  post_id          Int          @id @default(autoincrement())
-  post_content     String
-  post_owner_id    Int
-  post_owner       User         @relation(fields: [post_owner_id], references: [user_id], onDelete: Cascade)
-  post_comments    Comment[]
-  post_shares      Share[]
-  post_likes       Like[]
-  post_images      Post_Image[]
-  reg_date         DateTime     @default(now())
+  post_id       Int          @id @default(autoincrement())
+  post_content  String
+  post_owner_id Int
+  reg_date      DateTime     @default(now())
+  post_comments Comment[]
+  post_likes    Like[]
+  post_owner    User         @relation(fields: [post_owner_id], references: [user_id], onDelete: Cascade)
+  post_images   Post_Image[]
+  post_shares   Share[]
 }
 
 model Post_Image {
-  image_id                Int         @id @default(autoincrement())
-  image_post_id           Int
-  image_post              Post        @relation(fields: [image_post_id], references: [post_id], onDelete: Cascade)
-  image_link              String?
-  reg_date                DateTime    @default(now())
+  image_id      Int      @id @default(autoincrement())
+  image_post_id Int
+  image_link    String?
+  reg_date      DateTime @default(now())
+  image_post    Post     @relation(fields: [image_post_id], references: [post_id], onDelete: Cascade)
 }
 
 model Comment {
-  comment_id        Int         @id @default(autoincrement())
-  comment_content   String
-  comment_owner_id  Int
-  comment_owner     User        @relation(fields: [comment_owner_id], references: [user_id], onDelete: Cascade)
-  comment_post_id   Int
-  comment_post      Post        @relation(fields: [comment_post_id], references: [post_id], onDelete: Cascade)
-  reg_date          DateTime    @default(now())
+  comment_id       Int      @id @default(autoincrement())
+  comment_content  String
+  comment_owner_id Int
+  comment_post_id  Int
+  reg_date         DateTime @default(now())
+  comment_owner    User     @relation(fields: [comment_owner_id], references: [user_id], onDelete: Cascade)
+  comment_post     Post     @relation(fields: [comment_post_id], references: [post_id], onDelete: Cascade)
 }
 
 model Share {
-  share_id        Int         @id       @default(autoincrement())
-  share_post_id   Int  
-  share_post      Post        @relation(fields: [share_post_id], references: [post_id], onDelete: Cascade)
-  share_owner_id  Int
-  share_owner     User        @relation(fields: [share_owner_id], references: [user_id], onDelete: Cascade)
-  reg_date        DateTime    @default(now())
+  share_id       Int  @id @default(autoincrement())
+  share_post_id  Int
+  share_owner_id Int
+  share_owner    User @relation(fields: [share_owner_id], references: [user_id], onDelete: Cascade)
+  share_post     Post @relation(fields: [share_post_id], references: [post_id], onDelete: Cascade)
 }
 
 model Like {
-  like_id         Int         @id         @default(autoincrement())
-  like_owner_id   Int
-  like_owner      User        @relation(fields: [like_owner_id], references: [user_id], onDelete: Cascade)
-  like_post_id    Int
-  like_post       Post        @relation(fields: [like_post_id], references: [post_id], onDelete: Cascade)
-  reg_date        DateTime    @default(now())
+  like_id       Int  @id @default(autoincrement())
+  like_owner_id Int
+  like_post_id  Int
+  like_owner    User @relation(fields: [like_owner_id], references: [user_id], onDelete: Cascade)
+  like_post     Post @relation(fields: [like_post_id], references: [post_id], onDelete: Cascade)
 }
 
 model Follow {
-  follow_id       Int         @id         @default(autoincrement())
-  follower_id     Int
-  follower        User        @relation(name: "UserFollowers", fields: [follower_id], references: [user_id], onDelete: Cascade)
-  following_id    Int
-  following       User        @relation(name:"UserFollowings", fields: [following_id], references: [user_id], onDelete: Cascade)
-  reg_date        DateTime    @default(now())
+  follow_id    Int  @id @default(autoincrement())
+  follower_id  Int
+  following_id Int
+  follower     User @relation("UserFollowers", fields: [follower_id], references: [user_id], onDelete: Cascade)
+  following    User @relation("UserFollowings", fields: [following_id], references: [user_id], onDelete: Cascade)
 }
