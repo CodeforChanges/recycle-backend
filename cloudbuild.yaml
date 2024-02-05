@@ -1,2 +1,13 @@
 steps:
+  # 기타 빌드 및 테스트 단계들...
+
+  # GCE 인스턴스에서 스크립트 실행
   - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud compute ssh rlghks3004@codeforchanges \
+          --zone=asia-northeast3-a \
+          --command="chmod +x ~/pull.sh && ~/pull.sh"
+    timeout: '120s'
