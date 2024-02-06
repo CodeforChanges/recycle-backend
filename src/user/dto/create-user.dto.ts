@@ -35,7 +35,7 @@ export class CreateUserDto {
     title: '유저 이미지',
     description: '유저 프로필 이미지 입니다.',
   })
-  user_image?: string;
+  user_image?: string | undefined;
 }
 
 export class CreateUserResponseDto implements Partial<UserDto> {
@@ -43,7 +43,7 @@ export class CreateUserResponseDto implements Partial<UserDto> {
   user_id: number;
 
   @ApiResponseProperty()
-  user_email?: string;
+  user_email: string;
 
   @ApiResponseProperty()
   user_name: string;
