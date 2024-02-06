@@ -24,9 +24,13 @@ pipeline {
         stage('Deploy to GCE') {
             steps {
                 script {
-                    // Jenkins가 돌아가는 GCE 인스턴스 내부에서 바로 컨테이너를 관리
-                    sh "docker-compose -f /home/rlghks3004/recycle-backend/docker-compose.yaml pull"
-                    sh "docker-compose -f /home/rlghks3004/recycle-backend/docker-compose.yaml up -d"
+                    // 기존 컨테이너가 있다면 중지하고 제거
+                    sh "docker stop recycle-backend_app_1 || true"
+                    sh "docker rm recycle-backend_app_1 || true"
+                    
+                    // 최신 이미지를 끌어온 후 컨테이너 실행
+                    sh "docker pull $DOCKER_IMAGE:latest"
+                    sh "docker run -d --name recycle-backend_app_1 -p 3000:3000 --env-file /home/rlghks3004/recycle-backend/.env $DOCKER_IMAGE:latest"
                 }
             }
         }
