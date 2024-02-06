@@ -12,12 +12,7 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto, CreateUserResponseDto } from './dto/create-user.dto';
 import { UpdateUserDto, UpdateUserResponseDto } from './dto/update-user.dto';
-import {
-  ApiOperation,
-  ApiParam,
-  ApiResponse,
-  ApiResponseProperty,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { DeleteUserResponseDto } from './dto/delete-user.dto';
 import { FindOneUserResponseDto } from './dto/findOne-user.dto';
