@@ -31,6 +31,15 @@ export class PostService {
             user_id,
           },
         },
+        post_images: {
+          createMany: {
+            data: data.post_images?.map((item) => {
+              return {
+                image_link: item,
+              };
+            }),
+          },
+        },
       },
     });
   }
