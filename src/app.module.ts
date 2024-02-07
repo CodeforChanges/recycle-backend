@@ -9,6 +9,8 @@ import { LikeModule } from './like/like.module';
 import { FollowModule } from './follow/follow.module';
 import { ShareModule } from './share/share.module';
 import { CommentModule } from './comment/comment.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './logging.interceptor';
 
 @Module({
   imports: [
@@ -24,6 +26,12 @@ import { CommentModule } from './comment/comment.module';
     CommentModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+  ],
 })
 export class AppModule {}
