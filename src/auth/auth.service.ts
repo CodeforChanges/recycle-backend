@@ -23,7 +23,7 @@ export class AuthService {
     });
 
     if(!user_email){
-      throw new BadRequestException("이메일이 존재하지 않습니다.");
+      throw new NotFoundException("존재하지 않는 이메일입니다.");
     }
 
     if (!user) {

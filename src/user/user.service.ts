@@ -4,8 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
 import { hashPassword } from './lib/hash';
 import { exclude } from './utils/user.utils';
-import * as fs from 'fs';
-import { User } from '@prisma/client';
+
 
 @Injectable()
 export class UserService {
