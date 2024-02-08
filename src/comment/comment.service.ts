@@ -9,6 +9,15 @@ export class CommentService {
 
   async create(createCommentDto: CreateCommentDto) {
     return await this.prisma.comment.create({
+      include:{
+        comment_owner:{
+          select:{
+            user_id: true,
+            user_nickname: true,
+            user_image: true
+          }
+        }
+      },
       data: {
         comment_content: createCommentDto.comment_content,
         comment_post: {

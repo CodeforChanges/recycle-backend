@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_URL")
+  provider = "mysql"  
+  url      = "mysql://root:Dlcjddns307056~!@localhost:3306/recycle"
 }
 
 model User {
@@ -16,11 +16,8 @@ model User {
   user_image      String?
   user_created_at DateTime  @default(now())
   user_comments   Comment[]
-  user_followers  Follow[]  @relation("UserFollowers")
-  user_followings Follow[]  @relation("UserFollowings")
   user_likes      Like[]
   user_posts      Post[]
-  user_shares     Share[]
 }
 
 model Post {
@@ -32,7 +29,6 @@ model Post {
   post_likes    Like[]
   post_owner    User         @relation(fields: [post_owner_id], references: [user_id], onDelete: Cascade)
   post_images   Post_Image[]
-  post_shares   Share[]
 }
 
 model Post_Image {
@@ -53,26 +49,10 @@ model Comment {
   comment_post     Post     @relation(fields: [comment_post_id], references: [post_id], onDelete: Cascade)
 }
 
-model Share {
-  share_id       Int  @id @default(autoincrement())
-  share_post_id  Int
-  share_owner_id Int
-  share_owner    User @relation(fields: [share_owner_id], references: [user_id], onDelete: Cascade)
-  share_post     Post @relation(fields: [share_post_id], references: [post_id], onDelete: Cascade)
-}
-
 model Like {
   like_id       Int  @id @default(autoincrement())
   like_owner_id Int
   like_post_id  Int
   like_owner    User @relation(fields: [like_owner_id], references: [user_id], onDelete: Cascade)
   like_post     Post @relation(fields: [like_post_id], references: [post_id], onDelete: Cascade)
-}
-
-model Follow {
-  follow_id    Int  @id @default(autoincrement())
-  follower_id  Int
-  following_id Int
-  follower     User @relation("UserFollowers", fields: [follower_id], references: [user_id], onDelete: Cascade)
-  following    User @relation("UserFollowings", fields: [following_id], references: [user_id], onDelete: Cascade)
 }

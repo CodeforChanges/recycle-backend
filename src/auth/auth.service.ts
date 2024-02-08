@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -21,8 +22,12 @@ export class AuthService {
       },
     });
 
+    if(!user_email){
+      throw new BadRequestException("이메일이 존재하지 않습니다.");
+    }
+
     if (!user) {
-      throw new NotFoundException('존재하지 않는 유저 입니다.');
+      throw new NotFoundException('존재하지 않는 유저입니다.');
     }
 
     const isValidPass = await comparePassword({
