@@ -8,6 +8,9 @@ import {
   Delete,
   UseGuards,
   Req,
+  UseInterceptors,
+  UploadedFile,
+  NotFoundException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, CreateUserResponseDto } from './dto/create-user.dto';
@@ -16,6 +19,10 @@ import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { DeleteUserResponseDto } from './dto/delete-user.dto';
 import { FindOneUserResponseDto } from './dto/findOne-user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import * as path from 'path';
+import * as fs from 'fs';
 
 @Controller('user')
 export class UserController {
@@ -73,4 +80,6 @@ export class UserController {
     const user_id = req['user'].user_id;
     return await this.userService.remove(+user_id);
   }
+
+
 }

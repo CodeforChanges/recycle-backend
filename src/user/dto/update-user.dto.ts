@@ -19,8 +19,8 @@ export class UpdateUserDto {
 
 export class UpdateUserResponseDto implements Partial<UserDto> {
   @ApiResponseProperty()
-  user_image: string;
+  user_nickname: string;
 
   @ApiResponseProperty()
-  user_nickname: string;
+  user_image: string;
 }
