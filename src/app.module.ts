@@ -11,6 +11,7 @@ import { ShareModule } from './share/share.module';
 import { CommentModule } from './comment/comment.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './logging.interceptor';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { LoggingInterceptor } from './logging.interceptor';
     FollowModule,
     ShareModule,
     CommentModule,
+    TagModule,
   ],
   controllers: [AppController],
   providers: [
