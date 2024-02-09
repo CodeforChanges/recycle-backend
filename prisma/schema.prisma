@@ -33,6 +33,12 @@ model Post {
   post_owner    User         @relation(fields: [post_owner_id], references: [user_id], onDelete: Cascade)
   post_images   Post_Image[]
   post_shares   Share[]
+  post_tags     Post_Tag[]
+}
+
+model Post_Tag {
+  tag_name String @id
+  post_ids Post[]
 }
 
 model Post_Image {
