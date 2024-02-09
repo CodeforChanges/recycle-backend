@@ -1,14 +1,6 @@
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { UserDto } from 'src/dto/base.dto';
 
-class FindOneUserCountDto {
-  @ApiResponseProperty()
-  user_followers: number;
-
-  @ApiResponseProperty()
-  user_followings: number;
-}
-
 export class FindOneUserResponseDto implements Partial<UserDto> {
   @ApiResponseProperty()
   user_id: number;
@@ -24,9 +16,6 @@ export class FindOneUserResponseDto implements Partial<UserDto> {
 
   @ApiResponseProperty()
   user_nickname?: string;
-
-  @ApiResponseProperty({ type: FindOneUserCountDto })
-  _count: FindOneUserCountDto;
 
   @ApiResponseProperty()
   user_created_at?: Date;
