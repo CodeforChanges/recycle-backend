@@ -2,26 +2,23 @@
 ALTER TABLE "User" ALTER COLUMN "user_image" DROP NOT NULL;
 
 -- CreateTable
-CREATE TABLE "Post_Tag" (
+CREATE TABLE "Tag" (
     "tag_name" TEXT NOT NULL,
+    "count" INTEGER NOT NULL DEFAULT 0,
 
-    CONSTRAINT "Post_Tag_pkey" PRIMARY KEY ("tag_name")
+    CONSTRAINT "Tag_pkey" PRIMARY KEY ("tag_name")
 );
 
 -- CreateTable
-CREATE TABLE "_PostToPost_Tag" (
-    "A" INTEGER NOT NULL,
-    "B" TEXT NOT NULL
+CREATE TABLE "Post_Tag" (
+    "tag_name" TEXT NOT NULL,
+    "post_id" INTEGER NOT NULL,
+
+    CONSTRAINT "Post_Tag_pkey" PRIMARY KEY ("tag_name","post_id")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "_PostToPost_Tag_AB_unique" ON "_PostToPost_Tag"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_PostToPost_Tag_B_index" ON "_PostToPost_Tag"("B");
+-- AddForeignKey
+ALTER TABLE "Post_Tag" ADD CONSTRAINT "Post_Tag_tag_name_fkey" FOREIGN KEY ("tag_name") REFERENCES "Tag"("tag_name") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_PostToPost_Tag" ADD CONSTRAINT "_PostToPost_Tag_A_fkey" FOREIGN KEY ("A") REFERENCES "Post"("post_id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_PostToPost_Tag" ADD CONSTRAINT "_PostToPost_Tag_B_fkey" FOREIGN KEY ("B") REFERENCES "Post_Tag"("tag_name") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Post_Tag" ADD CONSTRAINT "Post_Tag_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "Post"("post_id") ON DELETE RESTRICT ON UPDATE CASCADE;

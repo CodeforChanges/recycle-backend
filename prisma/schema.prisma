@@ -36,9 +36,19 @@ model Post {
   post_tags     Post_Tag[]
 }
 
+model Tag {
+  tag_name  String     @id
+  count     Int        @default(0)
+  post_tags Post_Tag[]
+}
+
 model Post_Tag {
-  tag_name String @id
-  post_ids Post[]
+  Tag      Tag    @relation(fields: [tag_name], references: [tag_name])
+  tag_name String
+  Post     Post   @relation(fields: [post_id], references: [post_id])
+  post_id  Int
+
+  @@id([tag_name, post_id])
 }
 
 model Post_Image {
