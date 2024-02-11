@@ -10,7 +10,7 @@ import { GetAllPostServiceParams } from './types/post.types';
 
 @Injectable()
 export class PostService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreatePostDto, user_id: number) {
     return await this.prisma.post.create({
