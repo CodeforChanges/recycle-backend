@@ -1,4 +1,3 @@
-import { get } from 'http';
 import {
   GetPostFindManyParams,
   GetPostFindManyResult,
@@ -68,7 +67,7 @@ export const getPostFindManyResult = async ({
   });
 };
 
-const getUserLikeState = ({
+export const getUserLikeState = ({
   post,
   user_id,
 }: {
@@ -78,7 +77,7 @@ const getUserLikeState = ({
   return post.post_likes.some((like) => like.like_owner_id === user_id);
 };
 
-const getLikesCount = (post: PostType) => {
+export const getLikesCount = (post: PostType) => {
   return post.post_likes.length;
 };
 
@@ -90,9 +89,8 @@ export const formatPostsWithOwnerAndLike = ({
   user_id: number;
 }) => {
   return posts.map((post) => ({
-    ...post,
+    post,
     post_likes: undefined,
-    post_shares: undefined,
     likesCount: getLikesCount(post),
     isLiked: getUserLikeState({ post, user_id }),
   }));

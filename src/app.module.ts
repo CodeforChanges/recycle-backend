@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { LikeModule } from './like/like.module';
 import { CommentModule } from './comment/comment.module';
+import { SearchModule } from './search/search.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './logging.interceptor';
 
@@ -20,6 +21,7 @@ import { LoggingInterceptor } from './logging.interceptor';
     }),
     LikeModule,
     CommentModule,
+    SearchModule,
   ],
   controllers: [AppController],
   providers: [
