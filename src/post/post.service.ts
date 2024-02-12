@@ -134,6 +134,8 @@ export class PostService {
   }
 
   async remove(id: number) {
+    await this.tagService.unlinkAll(id);
+
     return await this.prisma.post.delete({
       select: {
         post_id: true,

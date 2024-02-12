@@ -100,6 +100,18 @@ export class TagService {
   }
 
   /**
+   * 게시글에 포함된 모든 태그에 대한 관계 제거
+   *
+   * @param postId - 게시글 ID
+   */
+  async unlinkAll(postId: number) {
+    await this.prisma.post_Tag.deleteMany({
+      where: {
+        post_id: postId,
+      },
+    });
+  }
+
    * 모든 태그 반환
    *
    * @returns 모든 태그 반환
