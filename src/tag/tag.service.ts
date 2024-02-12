@@ -112,6 +112,7 @@ export class TagService {
     });
   }
 
+  /**
    * 모든 태그 반환
    *
    * @returns 모든 태그 반환
@@ -121,17 +122,31 @@ export class TagService {
   }
 
   /**
-   * 태그 검색
+   * 태그 이름으로 태그 검색
    *
    * @param query - 검색어
    * @returns 태그 검색 결과 반환
    */
-  find(query: string) {
-    return this.prisma.post_Tag.findMany({
+  findByTag(query: string) {
+    return this.prisma.tag.findMany({
       where: {
         tag_name: {
           contains: query,
         },
+      },
+    });
+  }
+
+  /**
+   * 게시글에 포함된 태그 검색
+   *
+   * @param postId - 게시글 ID
+   * @returns 태그 검색 결과 반환
+   */
+  findByPostId(postId: number) {
+    return this.prisma.post_Tag.findMany({
+      where: {
+        post_id: postId,
       },
     });
   }
