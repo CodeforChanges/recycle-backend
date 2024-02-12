@@ -7,13 +7,17 @@ import {
   getPostFindManyResult,
 } from './utils/post.utils';
 import { GetAllPostServiceParams } from './types/post.types';
+import { TagService } from 'src/tag/tag.service';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly tagService: TagService,
+  ) {}
 
   async create(data: CreatePostDto, user_id: number) {
-    return await this.prisma.post.create({
+    const newPost = await this.prisma.post.create({
       include: {
         post_images: true,
         post_owner: {
@@ -42,6 +46,15 @@ export class PostService {
         },
       },
     });
+
+    if (data.post_tags != null) {
+      // Link tags to a post
+      for (let index = 0; index < data.post_tags.length; index++) {
+        this.tagService.link(data.post_tags[index], newPost.post_id);
+      }
+    }
+
+    return newPost;
   }
 
   async findAll({ page, filter, user_id, target_id }: GetAllPostServiceParams) {
