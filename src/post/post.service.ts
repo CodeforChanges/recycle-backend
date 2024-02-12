@@ -82,6 +82,22 @@ export class PostService {
   }
 
   async update(id: number, updatePostDto: UpdatePostDto) {
+    // Update tags
+    if (updatePostDto.post_tags != null) {
+      const tags = updatePostDto.post_tags;
+
+      for (let index = 0; index < tags.length; index++) {
+        const tagName = tags[index];
+
+        // Toggle tags of the post
+        if (await this.tagService.isExists(tagName, id)) {
+          await this.tagService.unlink(tagName, id);
+        } else {
+          await this.tagService.link(tagName, id);
+        }
+      }
+    }
+
     return await this.prisma.post.update({
       where: {
         post_id: id,
@@ -97,6 +113,7 @@ export class PostService {
             reg_date: 'desc',
           },
         },
+        post_tags: true,
       },
       data: {
         post_content: updatePostDto.post_content,
