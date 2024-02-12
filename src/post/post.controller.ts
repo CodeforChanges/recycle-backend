@@ -56,7 +56,6 @@ export class PostController {
     @Query('filter') filter: PostFindManyFilter,
     @Query('owner') target_id: string | undefined,
   ) {
-    console.log(target_id);
     const user_id = request['user'].user_id;
     return await this.postService.findAll({
       page: page ? +page : 0,
