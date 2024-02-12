@@ -159,10 +159,12 @@ export class TagService {
    * @returns 게시글의 태그가 존재하는 경우 true, 아닌경우 false 반환
    */
   async isExists(tagName: string, postId: number) {
-    const postTag = await this.prisma.post_Tag.findFirst({
+    const postTag = await this.prisma.post_Tag.findUnique({
       where: {
-        tag_name: tagName,
-        post_id: postId,
+        tag_name_post_id: {
+          tag_name: tagName,
+          post_id: postId,
+        },
       },
     });
 
