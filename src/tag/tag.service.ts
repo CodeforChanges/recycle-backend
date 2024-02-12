@@ -105,11 +105,11 @@ export class TagService {
    * @param postId - 게시글 ID
    */
   async unlinkAll(postId: number) {
-    await this.prisma.post_Tag.deleteMany({
-      where: {
-        post_id: postId,
-      },
-    });
+    const postTags = await this.findByPostId(postId);
+
+    for (let index = 0; index < postTags.length; index++) {
+      await this.unlink(postTags[index].tag_name, postId);
+    }
   }
 
   /**
