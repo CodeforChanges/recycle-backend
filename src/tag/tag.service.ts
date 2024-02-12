@@ -13,6 +13,11 @@ export class TagService {
    * @returns DB에 post-tag 관계 추가 작업한 결과
    */
   async link(tagName: string, postId: number) {
+    if (this.isExists(tagName, postId)) {
+      // 이미 게시글에 태그가 있는 경우
+      throw new Error('The tag is already attached to the post');
+    }
+
     // Get a post by id
     const post = await this.prisma.post.findUniqueOrThrow({
       where: { post_id: postId },
@@ -53,6 +58,11 @@ export class TagService {
    * @returns post-tag 관계 삭제에 대한 DB작업 결과
    */
   async unlink(tagName: string, postId: number) {
+    if (!this.isExists(tagName, postId)) {
+      // 게시글에 해당 태그가 존재하지 않는 경우
+      throw new Error('That tag does not exist in the post');
+    }
+
     // Get a post by id
     const post = await this.prisma.post.findUniqueOrThrow({
       where: { post_id: postId },
