@@ -115,6 +115,24 @@ export class TagService {
   }
 
   /**
+   * 게시글에 태그가 존재하는지 확인
+   *
+   * @param tagName - 태그 이름
+   * @param postId - 게시글 ID
+   * @returns 게시글의 태그가 존재하는 경우 true, 아닌경우 false 반환
+   */
+  async isExists(tagName: string, postId: number) {
+    const postTag = await this.prisma.post_Tag.findFirst({
+      where: {
+        tag_name: tagName,
+        post_id: postId,
+      },
+    });
+
+    return postTag != null;
+  }
+
+  /**
    * 새로운 태그 생성
    *
    * @param tagName - 태그 이름
