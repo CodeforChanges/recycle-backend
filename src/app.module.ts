@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { LikeModule } from './like/like.module';
 import { CommentModule } from './comment/comment.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CommentModule } from './comment/comment.module';
     }),
     LikeModule,
     CommentModule,
+    SearchModule,
   ],
   controllers: [AppController],
   providers: [AppService],
