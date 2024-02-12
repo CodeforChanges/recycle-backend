@@ -48,9 +48,11 @@ export class PostService {
     });
 
     if (data.post_tags != null) {
+      const tags = data.post_tags;
+
       // Link tags to a post
-      for (let index = 0; index < data.post_tags.length; index++) {
-        this.tagService.link(data.post_tags[index], newPost.post_id);
+      for (let index = 0; index < tags.length; index++) {
+        this.tagService.link(tags[index], newPost.post_id);
       }
     }
 
