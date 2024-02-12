@@ -27,6 +27,7 @@ export class PostService {
             user_image: true,
           },
         },
+        post_tags: true,
       },
       data: {
         post_content: data.post_content,
@@ -52,7 +53,17 @@ export class PostService {
 
       // Link tags to a post
       for (let index = 0; index < tags.length; index++) {
-        this.tagService.link(tags[index], newPost.post_id);
+        const tagName = tags[index];
+
+        await this.tagService.link(tagName, newPost.post_id);
+
+        // NOTE: 게시글의 ID는 게시글 생성 이후 DB에 의해 할당되고 Tag는 외래키에
+        //       의해 등록 가능하므로 게시글을 먼저 생성하고 이후 함수 반환값에
+        //       태그에 관한 값을 추가하는 순서로 동작한다.
+        newPost.post_tags.push({
+          tag_name: tagName,
+          post_id: newPost.post_id,
+        });
       }
     }
 
