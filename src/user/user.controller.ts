@@ -32,6 +32,19 @@ export class UserController {
     return await this.userService.create(createUserDto);
   }
 
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: '사용자의 데이터를 받는 엔드포인트입니다.' })
+  @ApiResponse({
+    status: 200,
+    description: '유저 데이터 받기 성공',
+    type: FindOneUserResponseDto,
+  })
+  @Get()
+  async myData(@Req() req: Request) {
+    return await this.userService.findOne(req['user'].user_id);
+  }
+
+
   @ApiOperation({ summary: 'user_id로 유저 데이터 받는 엔드포인트 입니다.' })
   @ApiResponse({
     status: 200,
@@ -73,4 +86,6 @@ export class UserController {
     const user_id = req['user'].user_id;
     return await this.userService.remove(+user_id);
   }
+
+
 }

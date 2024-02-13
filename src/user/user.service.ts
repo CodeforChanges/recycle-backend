@@ -1,9 +1,10 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
 import { hashPassword } from './lib/hash';
 import { exclude } from './utils/user.utils';
+
 
 @Injectable()
 export class UserService {
@@ -13,6 +14,9 @@ export class UserService {
     const { user_email, user_image, user_name, user_nickname, user_password } =
       createUserDto;
 
+      if(!user_image){
+
+      }
     const existingUser = await this.prisma.user.findUnique({
       where: {
         user_email,
@@ -41,25 +45,9 @@ export class UserService {
       },
     });
   }
-
+  
   async findOne(id: number) {
     const user = await this.prisma.user.findUnique({
-      include: {
-        _count: {
-          select: {
-            user_followers: {
-              where: {
-                following_id: id,
-              },
-            },
-            user_followings: {
-              where: {
-                follower_id: id,
-              },
-            },
-          },
-        },
-      },
       where: {
         user_id: id,
       },
@@ -94,4 +82,5 @@ export class UserService {
       },
     });
   }
+
 }

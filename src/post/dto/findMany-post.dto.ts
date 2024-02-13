@@ -75,14 +75,5 @@ export class FindManyPostResponseDto implements Partial<Post> {
   likesCount: number;
 
   @ApiResponseProperty()
-  sharesCount: number;
-
-  @ApiResponseProperty()
   isLiked: boolean;
-
-  @ApiResponseProperty()
-  isShared: boolean;
-
-  @ApiResponseProperty()
-  isFollowed: boolean;
 }

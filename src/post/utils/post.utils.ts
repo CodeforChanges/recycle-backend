@@ -1,4 +1,3 @@
-import { get } from 'http';
 import {
   GetPostFindManyParams,
   GetPostFindManyResult,
@@ -52,18 +51,6 @@ export const getPostFindManyResult = async ({
           user_id: true,
           user_nickname: true,
           user_image: true,
-          user_followers: {
-            select: {
-              follower_id: true,
-              follow_id: true,
-            },
-          },
-        },
-      },
-      post_shares: {
-        select: {
-          share_id: true,
-          share_owner_id: true,
         },
       },
       post_tags: true,
@@ -81,7 +68,7 @@ export const getPostFindManyResult = async ({
   });
 };
 
-const getUserLikeState = ({
+export const getUserLikeState = ({
   post,
   user_id,
 }: {
@@ -91,37 +78,7 @@ const getUserLikeState = ({
   return post.post_likes.some((like) => like.like_owner_id === user_id);
 };
 
-const getUserShareState = ({
-  post,
-  user_id,
-}: {
-  post: PostType;
-  user_id: number;
-}) => {
-  return post.post_shares.some((share) => share.share_owner_id === user_id);
-};
-
-const getUserFollowState = ({
-  post,
-  user_id,
-}: {
-  post: PostType;
-  user_id: number;
-}) => {
-  return post.post_owner.user_followers.some(
-    (follower) => follower.follower_id === user_id,
-  );
-};
-
-const formatPostOwnerWithFollowCount = (post: PostType) => {
-  const { user_followers, ...rest } = post.post_owner;
-  return {
-    ...rest,
-    follower_count: user_followers.length,
-  };
-};
-
-const getLikesCount = (post: PostType) => {
+export const getLikesCount = (post: PostType) => {
   return post.post_likes.length;
 };
 
@@ -141,15 +98,11 @@ export const formatPostsWithOwnerAndLike = ({
   user_id: number;
 }) => {
   return posts.map((post) => ({
-    ...post,
+    post,
     post_likes: undefined,
-    post_shares: undefined,
     likesCount: getLikesCount(post),
     sharesCount: getSharesCount(post),
     tagsCount: getTagsCount(post),
     isLiked: getUserLikeState({ post, user_id }),
-    isShared: getUserShareState({ post, user_id }),
-    isFollowed: getUserFollowState({ post, user_id }),
-    post_owner: formatPostOwnerWithFollowCount(post),
   }));
 };

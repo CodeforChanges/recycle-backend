@@ -1,11 +1,9 @@
 import { ApiResponseProperty } from '@nestjs/swagger';
 import {
   Comment,
-  Follow,
   Like,
   Post,
   Post_Image,
-  Share,
   User,
 } from '@prisma/client';
 
@@ -63,20 +61,6 @@ export class CommentDto implements Comment {
   reg_date: Date;
 }
 
-export class ShareDto implements Share {
-  @ApiResponseProperty()
-  share_id: number;
-
-  @ApiResponseProperty()
-  share_post_id: number;
-
-  @ApiResponseProperty()
-  share_owner_id: number;
-
-  @ApiResponseProperty()
-  reg_date: Date;
-}
-
 export class LikeDto implements Like {
   @ApiResponseProperty()
   like_id: number;
@@ -86,20 +70,6 @@ export class LikeDto implements Like {
 
   @ApiResponseProperty()
   like_post_id: number;
-
-  @ApiResponseProperty()
-  reg_date: Date;
-}
-
-export class FollowDto implements Follow {
-  @ApiResponseProperty()
-  follow_id: number;
-
-  @ApiResponseProperty()
-  follower_id: number;
-
-  @ApiResponseProperty()
-  following_id: number;
 
   @ApiResponseProperty()
   reg_date: Date;

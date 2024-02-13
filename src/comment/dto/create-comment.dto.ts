@@ -34,4 +34,11 @@ export class CreateCommentResponseDto implements Comment {
 
   @ApiResponseProperty()
   reg_date: Date;
+
+  @ApiResponseProperty()
+  comment_owner: {
+    user_id: number;
+    user_nickname: string;
+    user_image: string;
+  };
 }
