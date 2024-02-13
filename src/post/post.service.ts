@@ -7,13 +7,17 @@ import {
   getPostFindManyResult,
 } from './utils/post.utils';
 import { GetAllPostServiceParams } from './types/post.types';
+import { TagService } from 'src/tag/tag.service';
 
 @Injectable()
 export class PostService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly tagService: TagService,
+  ) {}
 
   async create(data: CreatePostDto, user_id: number) {
-    return await this.prisma.post.create({
+    const newPost = await this.prisma.post.create({
       include: {
         post_images: true,
         post_owner: {
@@ -23,6 +27,7 @@ export class PostService {
             user_image: true,
           },
         },
+        post_tags: true,
       },
       data: {
         post_content: data.post_content,
@@ -42,6 +47,27 @@ export class PostService {
         },
       },
     });
+
+    if (data.post_tags != null) {
+      const tags = data.post_tags;
+
+      // Link tags to a post
+      for (let index = 0; index < tags.length; index++) {
+        const tagName = tags[index];
+
+        await this.tagService.link(tagName, newPost.post_id);
+
+        // NOTE: 게시글의 ID는 게시글 생성 이후 DB에 의해 할당되고 Tag는 외래키에
+        //       의해 등록 가능하므로 게시글을 먼저 생성하고 이후 함수 반환값에
+        //       태그에 관한 값을 추가하는 순서로 동작한다.
+        newPost.post_tags.push({
+          tag_name: tagName,
+          post_id: newPost.post_id,
+        });
+      }
+    }
+
+    return newPost;
   }
 
   async findAll({ page, filter, user_id, target_id }: GetAllPostServiceParams) {
@@ -56,6 +82,22 @@ export class PostService {
   }
 
   async update(id: number, updatePostDto: UpdatePostDto) {
+    // Update tags
+    if (updatePostDto.post_tags != null) {
+      const tags = updatePostDto.post_tags;
+
+      for (let index = 0; index < tags.length; index++) {
+        const tagName = tags[index];
+
+        // Toggle tags of the post
+        if (await this.tagService.isExists(tagName, id)) {
+          await this.tagService.unlink(tagName, id);
+        } else {
+          await this.tagService.link(tagName, id);
+        }
+      }
+    }
+
     return await this.prisma.post.update({
       where: {
         post_id: id,
@@ -71,6 +113,7 @@ export class PostService {
             reg_date: 'desc',
           },
         },
+        post_tags: true,
       },
       data: {
         post_content: updatePostDto.post_content,
@@ -91,6 +134,8 @@ export class PostService {
   }
 
   async remove(id: number) {
+    await this.tagService.unlinkAll(id);
+
     return await this.prisma.post.delete({
       select: {
         post_id: true,

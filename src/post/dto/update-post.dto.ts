@@ -15,6 +15,14 @@ export class UpdatePostDto {
     description: '이미지 수정후 포스트 이미지 리스트 담아주시면 됩니다!',
   })
   post_images?: string[];
+
+  @ApiProperty({
+    required: false,
+    title: '게시글 태그 토글',
+    description:
+      '배열에 담긴 태그들에 대해서 이미 게시글에 존재하는 태그는 삭제하고 존재하지 않는 태그는 게시글에 추가합니다.',
+  })
+  post_tags?: string[];
 }
 
 class UpdatePostImageDto implements Partial<PostImageDto> {

@@ -10,6 +10,7 @@ import { CommentModule } from './comment/comment.module';
 import { SearchModule } from './search/search.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './logging.interceptor';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { LoggingInterceptor } from './logging.interceptor';
     }),
     LikeModule,
     CommentModule,
+    TagModule,
     SearchModule,
   ],
   controllers: [AppController],

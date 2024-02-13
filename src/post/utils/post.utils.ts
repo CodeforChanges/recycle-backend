@@ -53,6 +53,7 @@ export const getPostFindManyResult = async ({
           user_image: true,
         },
       },
+      post_tags: true,
     },
     orderBy:
       filter === 'like'
@@ -81,6 +82,14 @@ export const getLikesCount = (post: PostType) => {
   return post.post_likes.length;
 };
 
+const getSharesCount = (post: PostType) => {
+  return post.post_shares.length;
+};
+
+const getTagsCount = (post: PostType) => {
+  return post.post_tags.length;
+};
+
 export const formatPostsWithOwnerAndLike = ({
   posts,
   user_id,
@@ -92,6 +101,8 @@ export const formatPostsWithOwnerAndLike = ({
     post,
     post_likes: undefined,
     likesCount: getLikesCount(post),
+    sharesCount: getSharesCount(post),
+    tagsCount: getTagsCount(post),
     isLiked: getUserLikeState({ post, user_id }),
   }));
 };
