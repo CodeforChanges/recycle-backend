@@ -17,6 +17,13 @@ export class CreatePostDto {
       '게시물 포스트 할 때 업로드한 이미지 배열을 여기에 담아주시면 됩니다.',
   })
   post_images?: string[];
+
+  @ApiProperty({
+    required: false,
+    title: '게시글 태그 배열',
+    description: '게시글 태그들을 포함한 배열을 보내주시면 됩니다.',
+  })
+  post_tags?: string[];
 }
 
 export class CreatePostResponseDto implements Partial<PostDto> {
