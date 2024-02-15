@@ -36,3 +36,4 @@ lerna-debug.log*
 .env
 .env.development.local
 /prisma
+node_modules
