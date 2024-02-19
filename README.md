@@ -22,19 +22,19 @@
 </div>
 
 ## TABLE OF CONTENTS
-### [1.](#1-about-the-project)  **About The Project**  
+[1.](#1-about-the-project)  **About The Project**  
   
-### [2.](#2--start-guide-1)  **Start Guide**   
+[2.](#2--start-guide-1)  **Start Guide**   
 * [2-1.](#2-1--Prerequisites) Prerequisites  
 * [2-2.](#2-2--Installation) Installation   
    
-### [3.](#3--stacks-1)  **Stacks**  
+[3.](#3--stacks-1)  **Stacks**  
 * [3-1.](#3-1--environment) Environment  
 * [3-2.](#3-2--config)  Config  
 * [3-3.](#3-3--development)  Development  
 * [3-4.](#3-4--communication)  Communication  
    
-### [4.](#4--api-address-1)  **API Address**  
+[4.](#4--api-address-1)  **API Address**  
  * [4-1.](#4-1--auth)  Auth   
  * [4-2.](#4-2--user)  User  
  * [4-3.](#4-3--post)  Post  
@@ -43,15 +43,15 @@
  * [4-6.](#4-6--search)  Search  
  * [4-7.](#4-7--model)  Model  
    
-### [5.](#5--env) **env**
+[5.](#5--env) **env**
 
-### [6.](#6--usage-1)  **Usage**
+[6.](#6--usage-1)  **Usage**
 
-### [7.](#7--contributing) **Contributing**
+[7.](#7--contributing) **Contributing**
 
-### [8.](#8--license) **License**
+[8.](#8--license) **License**
 
-### [9.](#9--contact) **Contact**
+[9.](#9--contact) **Contact**
 
 
 ## [1.](#table-of-contents) About The Project
