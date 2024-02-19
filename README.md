@@ -21,7 +21,7 @@
   </p>
 </div>
 
-## TABLE OF CONTENTS
+## [TABLE OF CONTENTS](#table-of-contents)
 1. [**About The Project**](#about-the-project)  
   
 2. [**Start Guide**](#start-guide)  
@@ -54,7 +54,7 @@
 9. [**Contact**](#contact)
 
 
-## [About The Project](#about-the-project)
+## [About The Project](#about-the-project)(#table-of-contents)
 
 In a world increasingly concerned with sustainability, the Recycle Guide app serves as a beacon of innovation. Developed with Flutter, this app not only identifies waste types through photo recognition but also educates users on proper recycling methods. It's designed to make recycling accessible and informative, encouraging environmentally friendly practices among its users.
 
@@ -68,16 +68,16 @@ Why Recycle Guide?
 We're on a mission to empower individuals to make a difference in their communities through responsible waste management. Join us in making the world a cleaner, greener place.
 
 
-## [Start Guide](#start-guide)
+## [Start Guide](#start-guide)(#table-of-contents)
 
-### [Prerequisites](#prerequisites)
+### [Prerequisites](#prerequisites)(#table-of-contents)
 For building and running the application you need:
 
 * An IDE
 
 <img src="https://img.shields.io/badge/nest.js-E0234E?style=for-the-badge&logo=nestjs&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
 
-### [Installation](#installation)
+### [Installation](#installation)(#table-of-contents)
 
 1. Clone the repo
    
