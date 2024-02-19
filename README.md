@@ -22,39 +22,39 @@
 </div>
 
 ## TABLE OF CONTENTS
-1. [**Acout The Project**]  
+1. [**About The Project**](#abouttheproject)  
   
-2. [**Start Guide**]  
-   2-1. Prerequisites  
-   2-2. Installation
+2. [**Start Guide**](#startguide)  
+   2-1. [Prerequisites](#prerequisites)  
+   2-2. [Installation](#installation)
    
-3. [**Stacks**]  
-   3-1. Environment  
-   3-2. Config  
-   3-3. Development  
-   3-4. Communication
+3. [**Stacks**](#stacks)  
+   3-1. [Environment](#environment)  
+   3-2. [Config](#config)  
+   3-3. [Development](#development)  
+   3-4. [Communication](#communication)
    
-4. [**API Address**]    
-   4-1. Auth  
-   4-2. User  
-   4-3. Post  
-   4-4. Comment  
-   4-5. Like  
-   4-6. Search  
-   4-7. Model
+4. [**API Address**](#apiaddress)    
+   4-1. [Auth](#auth)  
+   4-2. [User](#user)  
+   4-3. [Post](#post)  
+   4-4. [Comment](#comment)  
+   4-5. [Like](#like)  
+   4-6. [Search](#search)    
+   4-7. [Model](#model)  
    
-5. [**env**]
+5. [**env**](#env)
 
-6. [**Usage**]
+6. [**Usage**](#usage)
 
-7. [**Contributing**]
+7. [**Contributing**](#contributing)
 
 8. [**License**](#license)
 
-9. [**Contact**]  
+9. [**Contact**](#contact)
 
 
-## About The Project
+## [About The Project](#abouttheproject)
 
 In a world increasingly concerned with sustainability, the Recycle Guide app serves as a beacon of innovation. Developed with Flutter, this app not only identifies waste types through photo recognition but also educates users on proper recycling methods. It's designed to make recycling accessible and informative, encouraging environmentally friendly practices among its users.
 
@@ -68,16 +68,16 @@ Why Recycle Guide?
 We're on a mission to empower individuals to make a difference in their communities through responsible waste management. Join us in making the world a cleaner, greener place.
 
 
-## Start Guide
+## [Start Guide](#startguide)
 
-### Prerequisites
+### [Prerequisites](#prerequisites)
 For building and running the application you need:
 
 * An IDE
 
 <img src="https://img.shields.io/badge/nest.js-E0234E?style=for-the-badge&logo=nestjs&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
 
-### Installation
+### [Installation](#installation)
 
 1. Clone the repo
    
@@ -95,35 +95,35 @@ For building and running the application you need:
    ```
 
 
-## Stacks
+## [Stacks](#stacks)
 
-### Environment
+### [Environment](#environment)
 <img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> 
 
-### Config
+### [Config](#config)
 <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
 
-### Development
+### [Development](#development)
 <img src="https://img.shields.io/badge/nest.js-E0234E?style=for-the-badge&logo=nestjs&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white"> <img src="https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white"> <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"> ![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFCA28?style=for-the-badge&logo=hugging%20face&logoColor=white)
 
 
-### Communication
+### [Communication](#communication)
 <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/googlemeet-00897B?style=for-the-badge&logo=googlemeet&logoColor=white"> <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
 
 
-## API Address
+## [API Address](#apiaddress)
 ```sh
 'Accept: application/json' URL:PORT
 ```
 
-### Auth
+### [Auth](#auth)
 ```sh
 'POST' /auth                    # Sign in
   REQUEST >> {"user_email": "string", "user_password": "string"}
   RESPONSE >> {"access_token": "string"}
 ```
 
-### User
+### [User](#user)
 ```sh
 'GET' /user                    # Get User data
   RESPONSE >> {"user_id": 0, "user_email": "string", "user_image": "string", "user_name": "string", "user_nickname": "string", "user_created_at": "2024-02-19T12:39:35.547Z"}
@@ -148,7 +148,7 @@ For building and running the application you need:
   RESPONSE >> {"user_id": 0, "user_email": "string", "user_image": "string", "user_name": "string", "user_nickname": "string", "user_created_at": "2024-02-19T12:39:35.547Z"}
 ```
 
-### Post
+### [Post](#post)
 * PostDto
 ```sh
   {
@@ -208,7 +208,7 @@ For building and running the application you need:
   RESPONSE >> {"post_id": 0}
 ```
 
-### Comment
+### [Comment](#comment)
 ```sh
 'POST' /comment                    # Create Comment on Specific Post
   REQUEST >> {"comment_content": "string", "post_id": 0}
@@ -223,7 +223,7 @@ For building and running the application you need:
 'DELETE' /comment/{comment_id}                    # Delete Comment
 ```
 
-### Like
+### [Like](#like)
 ```sh
 'POST' /like                    # Add Like
   REQUEST >> {"post_id": 0}
@@ -233,25 +233,25 @@ For building and running the application you need:
 'DELETE' /like/{post_id}                    # Cancel Like
 ```
 
-### Search
+### [Search](#search)
 ```sh
 'POST' /search                    # Search based on Post content and hashtags
   REQUEST >> {"keyword": "string"}
   RESPONSE >> PostDto
 ```
 
-### Model
+### [Model](#model)
 
 
 
-## env
+## [env](#usage)
 * JWT_SECRET
 * DATABASE_URL (POSTGRES_URL)
 * NODE_ENV
 * PORT
 
 
-## Usage
+## [Usage](#usage)
 Recycle Guide can be used in several ways to promote recycling and sustainability:
 
 Waste Identification: Snap a photo of your waste, and the app will tell you what type of material it is and how to recycle it properly. Community Engagement: Share your recycling achievements and tips with the community, fostering a culture of sustainability. Educational Resources: Access a wealth of information on recycling practices and the impact of recycling on the environment.
@@ -267,5 +267,5 @@ Fork the Project Create your Feature Branch (git checkout -b feature/AmazingFeat
 Distributed under the MIT License. See LICENSE.txt for more information.
 
 
-## Contact
+## [Contact](#contact)
 https://github.com/CodeforChanges/recycle-backend(https://github.com/CodeforChanges/recycle-backend)
