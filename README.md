@@ -25,8 +25,8 @@
 ### [1.](#about-the-project)  **About The Project**  
   
 ### [2.](#start-guide)  **Start Guide**     
-* [2-1.](#prerequisites) Prerequisites  
-* [2-2.](#installation) Installation   
+* [2-1.](#2-1.) Prerequisites  
+* [2-2.](#2-2.) Installation   
    
 ### [3.](#stacks)  **Stacks**  
 * [3-1.](#environment) Environment  
