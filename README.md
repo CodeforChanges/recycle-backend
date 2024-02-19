@@ -22,7 +22,7 @@
 </div>
 
 ## [TABLE OF CONTENTS](#table-of-contents)
-[1.](#about-the-project)**About The Project**
+[1.](#about-the-project) **About The Project**
   
 2. [**Start Guide**](#start-guide)  
    2-1. [Prerequisites](#prerequisites)  
