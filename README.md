@@ -22,9 +22,9 @@
 </div>
 
 ## TABLE OF CONTENTS
-1. [**About The Project**](#abouttheproject)  
+1. [**About The Project**](#about-the-project)  
   
-2. [**Start Guide**](#startguide)  
+2. [**Start Guide**](#start-guide)  
    2-1. [Prerequisites](#prerequisites)  
    2-2. [Installation](#installation)
    
@@ -34,7 +34,7 @@
    3-3. [Development](#development)  
    3-4. [Communication](#communication)
    
-4. [**API Address**](#apiaddress)    
+4. [**API Address**](#api-address)    
    4-1. [Auth](#auth)  
    4-2. [User](#user)  
    4-3. [Post](#post)  
@@ -54,7 +54,7 @@
 9. [**Contact**](#contact)
 
 
-## [About The Project](#abouttheproject)
+## [About The Project](#about-th-eproject)
 
 In a world increasingly concerned with sustainability, the Recycle Guide app serves as a beacon of innovation. Developed with Flutter, this app not only identifies waste types through photo recognition but also educates users on proper recycling methods. It's designed to make recycling accessible and informative, encouraging environmentally friendly practices among its users.
 
@@ -68,7 +68,7 @@ Why Recycle Guide?
 We're on a mission to empower individuals to make a difference in their communities through responsible waste management. Join us in making the world a cleaner, greener place.
 
 
-## [Start Guide](#startguide)
+## [Start Guide](#start-guide)
 
 ### [Prerequisites](#prerequisites)
 For building and running the application you need:
@@ -111,7 +111,7 @@ For building and running the application you need:
 <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/googlemeet-00897B?style=for-the-badge&logo=googlemeet&logoColor=white"> <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
 
 
-## [API Address](#apiaddress)
+## [API Address](#api-address)
 ```sh
 'Accept: application/json' URL:PORT
 ```
