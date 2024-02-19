@@ -22,6 +22,10 @@
 </div>
 
 ## TABLE OF CONTENTS
+<details>
+<summary>Title Index</summary>
+<div markdown="1">
+  
 [1.](#1-about-the-project)  **About The Project**  
   
 [2.](#2--start-guide)  **Start Guide**   
@@ -53,6 +57,8 @@
 
 [9.](#9--contact) **Contact**
 
+</div>
+</details>
 
 ## [1.](#table-of-contents) About The Project
 
