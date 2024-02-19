@@ -43,15 +43,15 @@
  * [4-6.](#search)  Search  
  * [4-7.](#model)  Model  
    
-### [5.](#5--env-1) **env**
+### [5.](#5--env) **env**
 
 ### [6.](#6--usage-1)  **Usage**
 
-### [7.](#7--contributing-1) **Contributing**
+### [7.](#7--contributing) **Contributing**
 
-### [8.](#8--license-1) **License**
+### [8.](#8--license) **License**
 
-### [9.](#9--contact-1) **Contact**
+### [9.](#9--contact) **Contact**
 
 
 ## [1.](#table-of-contents) About The Project
