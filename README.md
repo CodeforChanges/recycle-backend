@@ -21,37 +21,37 @@
   </p>
 </div>
 
-## [TABLE OF CONTENTS](#table-of-contents)
-[1.](#about-the-project) **About The Project**
+## [TABLE OF CONTENTS](#table-of-contents)  
+### [1.](#about-the-project)  **About The Project**  
   
-2. [**Start Guide**](#start-guide)  
-   2-1. [Prerequisites](#prerequisites)  
-   2-2. [Installation](#installation)
+### [2.](#start-guide)  **Start Guide**     
+* [2.1.](#prerequisites) Prerequisites  
+* [2.2.](#installation) Installation   
    
-3. [**Stacks**](#stacks)  
-   3-1. [Environment](#environment)  
-   3-2. [Config](#config)  
-   3-3. [Development](#development)  
-   3-4. [Communication](#communication)
+### [3.](#stacks)  **Stacks**  
+* [3-1.](#environment) Environment  
+* [3-2.](#config)  Config  
+* [3-3.](#development)  Development  
+* [3-4.](#communication)  Communication  
    
-4. [**API Address**](#api-address)    
-   4-1. [Auth](#auth)  
-   4-2. [User](#user)  
-   4-3. [Post](#post)  
-   4-4. [Comment](#comment)  
-   4-5. [Like](#like)  
-   4-6. [Search](#search)    
-   4-7. [Model](#model)  
+### [4.](#api-address)  **API Address**  
+ * [4-1.](#auth)  Auth   
+ * [4-2.](#user)  User  
+ * [4-3.](#post)  Post  
+ * [4-4.](#comment)  Comment   
+ * [4-5.](#like)  Like  
+ * [4-6.](#search)  Search  
+ * [4-7.](#model)  Model  
    
-5. [**env**](#env)
+### [5.](#env) **env**
 
-6. [**Usage**](#usage)
+### [6.](#usage)  **Usage**
 
-7. [**Contributing**](#contributing)
+### [7.](#contributing) **Contributing**
 
-8. [**License**](#license)
+### [8.](#license) **License**
 
-9. [**Contact**](#contact)
+### [9.](#contact) **Contact**
 
 
 ## [About The Project](#table-of-contents)
