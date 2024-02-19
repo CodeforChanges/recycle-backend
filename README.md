@@ -54,7 +54,7 @@
 9. [**Contact**](#contact)
 
 
-## [About The Project](#about-th-eproject)
+## [About The Project](#about-the-project)
 
 In a world increasingly concerned with sustainability, the Recycle Guide app serves as a beacon of innovation. Developed with Flutter, this app not only identifies waste types through photo recognition but also educates users on proper recycling methods. It's designed to make recycling accessible and informative, encouraging environmentally friendly practices among its users.
 
