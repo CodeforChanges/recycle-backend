@@ -186,7 +186,6 @@ For building and running the application you need:
       "user_id": 0,
       "user_nickname": "string",
       "user_image": "string",
-      "follower_count": 0
     },
     "likesCount": 0,
     "isLiked": true
