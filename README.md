@@ -21,7 +21,7 @@
   </p>
 </div>
 
-## [TABLE OF CONTENTS](#table-of-contents)  
+## TABLE OF CONTENTS
 ### [1.](#about-the-project)  **About The Project**  
   
 ### [2.](#start-guide)  **Start Guide**     
