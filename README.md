@@ -29,7 +29,7 @@
 * [2-2.](#2-2.) Installation   
    
 ### [3.](#stacks)  **Stacks**  
-* [3-1.](#environment) Environment  
+* [3-1.](#3-1.-environment) Environment  
 * [3-2.](#config)  Config  
 * [3-3.](#development)  Development  
 * [3-4.](#communication)  Communication  
