@@ -38,7 +38,7 @@ export class AiService {
 
     this.channel.sendToQueue(
       'garbage_classification_requests',
-      JSON.stringify(body),
+      Buffer.from(JSON.stringify(body)),
     );
 
     const request = new ModelRequestResponse();
