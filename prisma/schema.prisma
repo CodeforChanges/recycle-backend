@@ -29,7 +29,6 @@ model Post {
   post_likes    Like[]
   post_owner    User         @relation(fields: [post_owner_id], references: [user_id], onDelete: Cascade)
   post_images   Post_Image[]
-  post_shares   Share[]
   post_tags     Post_Tag[]
 }
 
