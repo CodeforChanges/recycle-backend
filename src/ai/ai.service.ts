@@ -21,7 +21,8 @@ export class AiService {
     this.channel = await this.conn.createChannel();
 
     this.channel.consume('garbage_classification_results', (body) => {
-      const response = JSON.parse(body);
+      this.channel.ack(body);
+      const response = JSON.parse(body.content.toString());
       this.memory[response['id']] = response;
     });
   }
