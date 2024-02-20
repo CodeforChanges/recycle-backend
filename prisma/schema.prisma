@@ -29,7 +29,6 @@ model Post {
   post_likes    Like[]
   post_owner    User         @relation(fields: [post_owner_id], references: [user_id], onDelete: Cascade)
   post_images   Post_Image[]
-  post_shares   Share[]
   post_tags     Post_Tag[]
 }
 
@@ -72,4 +71,10 @@ model Like {
   like_post_id  Int
   like_owner    User @relation(fields: [like_owner_id], references: [user_id], onDelete: Cascade)
   like_post     Post @relation(fields: [like_post_id], references: [post_id], onDelete: Cascade)
+}
+
+model AiResults {
+  id     String @id
+  data   String
+  result String
 }

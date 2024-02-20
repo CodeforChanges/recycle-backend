@@ -11,6 +11,7 @@ import { SearchModule } from './search/search.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './logging.interceptor';
 import { TagModule } from './tag/tag.module';
+import { AiModule } from './ai/ai.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { TagModule } from './tag/tag.module';
     CommentModule,
     TagModule,
     SearchModule,
+    AiModule,
   ],
   controllers: [AppController],
   providers: [
