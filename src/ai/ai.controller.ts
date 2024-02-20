@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { GarbageClassificationRequestDto } from './dto/garbage-classification-request.dto';
 import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
@@ -39,7 +47,13 @@ export class AiController {
     description: '추론 결환 반환',
   })
   @Get('garbage/:id')
-  async getGarbageClassificationResult(@Param('id') id: number) {
-    return this.aiService.getGarbageClassificationResult(id);
+  async getGarbageClassificationResult(@Param('id') id: string) {
+    const result = await this.aiService.getGarbageClassificationResult(id);
+
+    if (!result) {
+      throw new NotFoundException();
+    }
+
+    return result;
   }
 }
