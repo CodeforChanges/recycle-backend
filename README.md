@@ -95,7 +95,8 @@ For building and running the application you need:
 2. Install and run
 
    ```sh
-   export DATABASE_URL=your_postgres_database_url
+   $ export DATABASE_URL=your_postgres_database_url
+   $ export RECYCLE_AI_MQ_URL=your_mq_server_url  # amqp://user:password@addr:port/
    ```
 
    ```sh
