@@ -72,3 +72,9 @@ model Like {
   like_owner    User @relation(fields: [like_owner_id], references: [user_id], onDelete: Cascade)
   like_post     Post @relation(fields: [like_post_id], references: [post_id], onDelete: Cascade)
 }
+
+model AiResults {
+  id     String @id
+  data   String
+  result String
+}

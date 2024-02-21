@@ -27,10 +27,13 @@ pipeline {
                     // 기존 컨테이너가 있다면 중지하고 제거
                     sh "docker stop recycle-backend_app_1 || true"
                     sh "docker rm recycle-backend_app_1 || true"
+
+                    // 네트워크가 없다면 생성 (이 부분은 선택적)
+                    sh "docker network create codeforchange_network || true"
                     
                     // 최신 이미지를 끌어온 후 컨테이너 실행
                     sh "docker pull $DOCKER_IMAGE:latest"
-                    sh "docker run -d --name recycle-backend_app_1 -p 3000:3000 --env-file /home/rlghks3004/recycle-backend/.env $DOCKER_IMAGE:latest"
+                    sh "docker run -d --name recycle-backend_app_1 --network codeforchange_network -p 3000:3000 --env-file /home/rlghks3004/recycle-backend/.env $DOCKER_IMAGE:latest"
                 }
             }
         }
