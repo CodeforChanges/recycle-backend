@@ -23,6 +23,11 @@ export class AiService {
     this.conn = await amqplib.connect(url);
     this.channel = await this.conn.createChannel();
 
+    // 'garbage_classification_results' 큐가 없으면 생성합니다.
+    await this.channel.assertQueue('garbage_classification_results', {
+      durable: true, // 큐가 지속성 있게 만들어집니다.
+    });
+
     this.channel.consume('garbage_classification_results', async (body) => {
       this.channel.ack(body);
 
