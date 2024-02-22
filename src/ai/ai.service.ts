@@ -23,14 +23,12 @@ export class AiService {
     this.conn = await amqplib.connect(url);
     this.channel = await this.conn.createChannel();
 
-    // 'garbage_classification_requests' 큐가 없으면 생성합니다.
     await this.channel.assertQueue('garbage_classification_requests', {
-      durable: true, // 큐가 지속성 있게 만들어집니다.
+      durable: true,
     });
 
-    // 'garbage_classification_results' 큐가 없으면 생성합니다.
     await this.channel.assertQueue('garbage_classification_results', {
-      durable: true, // 큐가 지속성 있게 만들어집니다.
+      durable: true,
     });
 
     this.channel.consume('garbage_classification_results', async (body) => {
@@ -71,12 +69,32 @@ export class AiService {
   }
 
   async getGarbageClassificationResult(id: string) {
-    const result = await this.prismaService.aiResults.findUnique({
-      where: { id: id },
-    });
+    let result: any;
+    let count = 0;
 
-    result['result'] = JSON.parse(result['result']);
+    while (count < 100) {
+      result = await this.prismaService.aiResults.findUnique({
+        where: { id: id },
+      });
 
-    return result;
+      console.log(count);
+
+      if (result) {
+        console.log(result);
+
+        result['result'] = JSON.parse(
+          result['result'] ?? '{ message: "No result yet" }',
+        );
+
+        return result;
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      count++;
+    }
+
+    if (!result) {
+      return { message: 'No result yet' };
+    }
   }
 }
