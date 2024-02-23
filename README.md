@@ -289,4 +289,4 @@ Distributed under the MIT License. See LICENSE.txt for more information.
 
 ## [9](#9--contact) Contact
 
-https://github.com/CodeforChanges/recycle-backend(https://github.com/CodeforChanges/recycle-backend)
+[https://github.com/CodeforChanges/recycle-backend](https://github.com/CodeforChanges/recycle-backend)
