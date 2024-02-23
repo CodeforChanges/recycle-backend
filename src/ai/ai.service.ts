@@ -69,32 +69,16 @@ export class AiService {
   }
 
   async getGarbageClassificationResult(id: string) {
-    let result: any;
-    let count = 0;
-
-    while (count < 100) {
-      result = await this.prismaService.aiResults.findUnique({
-        where: { id: id },
-      });
-
-      console.log(count);
-
-      if (result) {
-        console.log(result);
-
-        result['result'] = JSON.parse(
-          result['result'] ?? '{ message: "No result yet" }',
-        );
-
-        return result;
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      count++;
-    }
+    const result = await this.prismaService.aiResults.findUnique({
+      where: { id: id },
+    });
 
     if (!result) {
-      return { message: 'No result yet' };
+      return null;
     }
+
+    result['result'] = JSON.parse(result['result']);
+
+    return result;
   }
 }
