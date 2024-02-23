@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  recycle-backend:
+    build:
+      context: . # Dockerfile이 위치한 디렉토리 경로
+      dockerfile: Dockerfile # Dockerfile 이름, 기본값은 Dockerfile
+    image: recycle-backend:latest
+    container_name: recycle-backend
+    ports:
+      - '3000:3000' # 호스트와 컨테이너 간 포트 매핑
+    networks:
+      - codeforchange_network
+    env_file:
+      - .env # 환경 변수 파일 경로
+
+networks:
+  codeforchange_network:
+    external: true
