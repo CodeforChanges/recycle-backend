@@ -1,6 +1,13 @@
 pipeline {
     agent any
     stages {
+        stage('Add safe directory') {
+            steps {
+                script {
+                    sh"git config --global --add safe.directory /home/rlghks3004/recycle-backend"
+                }
+            }
+        }
         stage('Git pull') {
             steps {
                 script {
