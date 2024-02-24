@@ -1,13 +1,11 @@
 pipeline {
     agent any
     stages {
-        stage('Move to project folder and git pull') {
+        stage('Git pull') {
             steps {
                 script {
-                    // 폴더로 이동
-                    sh "cd /home/rlghks3004/recycle-backend"
                     // 깃 풀
-                    sh "git pull origin main"
+                    sh "cd /home/rlghks3004/recycle-backend && git pull origin main"
                 }
             }
         }
@@ -15,7 +13,7 @@ pipeline {
             steps {
                 script {
                     // 도커 컴포즈 필드
-                    sh "docker-compose up -d --build"
+                    sh "cd /home/rlghks3004/recycle-backend && docker-compose up -d --build"
                 }
             }
         }
