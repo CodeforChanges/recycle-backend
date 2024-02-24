@@ -1,31 +1,39 @@
 pipeline {
     agent any
+    environment {
+        DOCKER_IMAGE = "rlghks3004/codeforchanges"
+        DOCKERHUB_CREDENTIALS_ID = "docker-hub-credential"
+    }
     stages {
-        stage('Move to project folder and git pull') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    // 폴더로 이동
-                    sh "cd /home/rlghks3004/recycle-backend"
-                    // 깃 풀
-                    sh "git pull origin main"
+                    docker.build("$DOCKER_IMAGE:latest")
                 }
             }
         }
-        stage('Docker Compose Build') {
+        stage('Push to DockerHub') {
             steps {
                 script {
-                    // 도커 컴포즈 필드
-                    sh "sudo docker-compose up -d --build"
+                    docker.withRegistry('', DOCKERHUB_CREDENTIALS_ID) {
+                        docker.image("$DOCKER_IMAGE:latest").push()
+                    }
                 }
             }
         }
-        stage('Remove Unused Docker Old Container And Image') {
+        stage('Deploy to GCE') {
             steps {
                 script {
-                    // 사용하지 않는 컨테이너 삭제
-                    sh "sudo docker container prune -f"
-                    // 사용하지 않는 이미지 삭제
-                    sh "sudo docker image prune -f"
+                    // 기존 컨테이너가 있다면 중지하고 제거
+                    sh "docker stop recycle-backend_app_1 || true"
+                    sh "docker rm recycle-backend_app_1 || true"
+
+                    // 네트워크가 없다면 생성 (이 부분은 선택적)
+                    sh "docker network create codeforchange_network || true"
+                    
+                    // 최신 이미지를 끌어온 후 컨테이너 실행
+                    sh "docker pull $DOCKER_IMAGE:latest"
+                    sh "docker run -d --name recycle-backend_app_1 --network codeforchange_network -p 3000:3000 --env-file /home/rlghks3004/recycle-backend/.env $DOCKER_IMAGE:latest"
                 }
             }
         }
